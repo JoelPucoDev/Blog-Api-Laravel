@@ -1,0 +1,41 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+
+class UsersTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        //Vaciar Tabla Usuarios
+        User::truncate();
+
+        $faker = \Faker\Factory::create();
+
+        //Crear la misma clave para los usuarios
+        $password = Hash::make('123456');
+
+        User::create([
+            'name' => 'Administrador',
+            'email' => 'admin@prueba.com',
+            'password' => $password,
+        ]);
+
+        //Crear usuarios
+        for ($i = 0; $i < 10; $i++) {
+            User::create([
+                'name' => $faker->name,
+                'email' => $faker->email,
+                'password' => $password,
+            ]);
+        }
+    }
+}
